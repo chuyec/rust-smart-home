@@ -1,13 +1,13 @@
 fn main() {
     println!("Hello, world!");
 
-    let outlet = outlet_create(String::from("Outlet in the hall"));
+    let outlet = Outlet::new(String::from("Outlet in the hall"));
 
     println!("Outlet: '{}'", outlet.get_description());
     println!("\tPower consumption: {}", outlet.get_power_consumption());
     println!("\tIs turned on: {}", outlet.turned_on);
 
-    let thermometer = thermometer_create();
+    let thermometer = Thermometer::new();
 
     println!("Thermometer:");
     println!("\tTemperature: {}", thermometer.get_temperature());
@@ -20,6 +20,14 @@ struct Outlet {
 }
 
 impl Outlet {
+    fn new(description: String) -> Outlet {
+        Outlet {
+            description,
+            power_consumption: 0,
+            turned_on: false,
+        }
+    }
+
     fn get_description(&self) -> &str {
         &self.description
     }
@@ -29,24 +37,16 @@ impl Outlet {
     }
 }
 
-fn outlet_create(description: String) -> Outlet {
-    Outlet {
-        description,
-        power_consumption: 0,
-        turned_on: false,
-    }
-}
-
 struct Thermometer {
     temperature: i32,
 }
 
 impl Thermometer {
+    fn new() -> Thermometer {
+        Thermometer { temperature: 0 }
+    }
+
     fn get_temperature(&self) -> i32 {
         self.temperature
     }
-}
-
-fn thermometer_create() -> Thermometer {
-    Thermometer { temperature: 0 }
 }
